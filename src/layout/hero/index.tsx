@@ -5,6 +5,7 @@ import PauseRounded from '@mui/icons-material/PauseRounded'
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded'
 import FastRewindRounded from '@mui/icons-material/FastRewindRounded'
 import FastForwardRounded from '@mui/icons-material/FastForwardRounded'
+import Tooltip from '@mui/material/Tooltip'
 
 export default function Hero() {
   const [paused, setPaused] = useState<boolean>(false)
@@ -32,21 +33,29 @@ export default function Hero() {
         >
           <Box sx={{ fontSize: '1.5rem' }}>20:00</Box>
           <Box marginTop="1rem">
-            <IconButton aria-label="previous song">
-              <FastRewindRounded sx={{ fontSize: '1.5rem' }} />
-            </IconButton>
+            <Tooltip title="-10m" placement="top">
+              <IconButton aria-label="previous song">
+                <FastRewindRounded sx={{ fontSize: '1.5rem' }} />
+              </IconButton>
+            </Tooltip>
             <IconButton
               aria-label={paused ? 'play' : 'pause'}
               onClick={() => setPaused(!paused)}
             >
               {paused ? (
-                <PlayArrowRounded sx={{ fontSize: '1.5rem' }} />
+                <Tooltip title="Resume" placement="top">
+                  <PlayArrowRounded sx={{ fontSize: '1.5rem' }} />
+                </Tooltip>
               ) : (
-                <PauseRounded sx={{ fontSize: '1.5rem' }} />
+                <Tooltip title="Pause" placement="top">
+                  <PauseRounded sx={{ fontSize: '1.5rem' }} />
+                </Tooltip>
               )}
             </IconButton>
             <IconButton aria-label="previous song">
-              <FastForwardRounded sx={{ fontSize: '1.5rem' }} />
+              <Tooltip title="+10m" placement="top">
+                <FastForwardRounded sx={{ fontSize: '1.5rem' }} />
+              </Tooltip>
             </IconButton>
           </Box>
         </Box>
