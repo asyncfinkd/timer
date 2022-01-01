@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import PauseRounded from '@mui/icons-material/PauseRounded'
@@ -7,12 +7,14 @@ import FastRewindRounded from '@mui/icons-material/FastRewindRounded'
 import FastForwardRounded from '@mui/icons-material/FastForwardRounded'
 import Tooltip from '@mui/material/Tooltip'
 import { formatTime } from '../../lib/time'
+import { ApplicationContext } from 'context'
 
 export default function Hero() {
-  const [timer, setTimer] = useState(20 * 60)
-  const [paused, setPaused] = useState<boolean>(true)
+  const { setting } = React.useContext(ApplicationContext)
+  const [timer, setTimer] = React.useState(20 * 60)
+  const [paused, setPaused] = React.useState<boolean>(true)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!paused) {
       document.title = `${formatTime(timer)} | Timer`
 
@@ -47,7 +49,7 @@ export default function Hero() {
             <Tooltip title="-10m" placement="top">
               <IconButton
                 aria-label="-10m"
-                onClick={() => setTimer(timer - 600)}
+                onClick={() => setTimer(timer - setting.minutesToSecond)}
               >
                 <FastRewindRounded sx={{ fontSize: '1.5rem' }} />
               </IconButton>
@@ -66,7 +68,10 @@ export default function Hero() {
                 </Tooltip>
               )}
             </IconButton>
-            <IconButton aria-label="+10m" onClick={() => setTimer(timer + 600)}>
+            <IconButton
+              aria-label="+10m"
+              onClick={() => setTimer(timer + setting.minutesToSecond)}
+            >
               <Tooltip title="+10m" placement="top">
                 <FastForwardRounded sx={{ fontSize: '1.5rem' }} />
               </Tooltip>
