@@ -1,2 +1,0 @@
-# timer
- timer with reactjs
