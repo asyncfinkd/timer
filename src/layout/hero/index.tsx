@@ -1,13 +1,13 @@
+import { useState } from 'react'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import PauseRounded from '@mui/icons-material/PauseRounded'
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded'
-import { useState } from 'react'
 import FastRewindRounded from '@mui/icons-material/FastRewindRounded'
 import FastForwardRounded from '@mui/icons-material/FastForwardRounded'
 
 export default function Hero() {
-  const [paused, setPaused] = useState(false)
+  const [paused, setPaused] = useState<boolean>(false)
 
   return (
     <>
