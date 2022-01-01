@@ -5,6 +5,23 @@ import reportWebVitals from './reportWebVitals'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { ApplicationContext } from 'context'
 import { RoutesData } from 'routes/route-generator'
+import { Toaster } from 'react-hot-toast'
+import { NavigationScroll } from 'shared/nav-scroll'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+const LazyLoad = () => {
+  React.useEffect(() => {
+    NProgress.configure({ showSpinner: false })
+    NProgress.start()
+
+    return () => {
+      NProgress.done()
+    }
+  })
+
+  return <></>
+}
 
 const Pages = () => {
   const [setting, setSetting] = React.useState({
@@ -29,9 +46,12 @@ const Pages = () => {
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Suspense fallback={false}>
-        <Pages />
-      </Suspense>
+      <NavigationScroll>
+        <Toaster position="bottom-right" reverseOrder={false} />
+        <Suspense fallback={<LazyLoad />}>
+          <Pages />
+        </Suspense>
+      </NavigationScroll>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
