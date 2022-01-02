@@ -57,7 +57,11 @@ export default function Hero() {
             <Tooltip title={`-${setting.minutes}m`} placement="top">
               <IconButton
                 aria-label={`-${setting.minutes}m`}
-                onClick={() => setTimer(timer - setting.minutesToSecond)}
+                onClick={() => {
+                  if (formatTime(timer) !== breakLength[0]) {
+                    setTimer(timer - setting.minutesToSecond)
+                  }
+                }}
               >
                 <FastRewindRounded sx={{ fontSize: '1.5rem' }} />
               </IconButton>
