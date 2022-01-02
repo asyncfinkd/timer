@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { ApplicationContext } from 'context'
+import { ApplicationContext, TContext } from 'context'
 import { RoutesData } from 'routes/route-generator'
 import { Toaster } from 'react-hot-toast'
 import { NavigationScroll } from 'shared/nav-scroll'
@@ -24,7 +24,7 @@ const LazyLoad = () => {
 }
 
 const Pages = () => {
-  const [setting, setSetting] = React.useState({
+  const [setting, setSetting] = React.useState<TContext>({
     minutes: '10',
     minutesToSecond: 600,
     notification: 'sound',

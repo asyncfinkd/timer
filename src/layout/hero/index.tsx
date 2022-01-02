@@ -10,7 +10,7 @@ import { formatTime } from '../../lib/time'
 import { ApplicationContext } from 'context'
 
 export default function Hero() {
-  const { setting } = React.useContext(ApplicationContext)
+  const { setting }: any = React.useContext(ApplicationContext)
   const [timer, setTimer] = React.useState(20 * 60)
   const [paused, setPaused] = React.useState<boolean>(true)
 

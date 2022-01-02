@@ -12,7 +12,7 @@ import TextField from '@mui/material/TextField'
 import { ApplicationContext } from 'context'
 
 export default function Setting() {
-  const { setting, setSetting } = React.useContext(ApplicationContext)
+  const { setting, setSetting }: any = React.useContext(ApplicationContext)
   const [show, setShow] = React.useState<boolean>(false)
   const [notification, setNotification] = React.useState<string>(
     setting.notification
