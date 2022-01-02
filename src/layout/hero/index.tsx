@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
@@ -8,19 +9,26 @@ import FastForwardRounded from '@mui/icons-material/FastForwardRounded'
 import Tooltip from '@mui/material/Tooltip'
 import { formatTime } from '../../lib/time'
 import { ApplicationContext } from 'context'
+import toast from 'react-hot-toast'
 
 export default function Hero() {
   const { setting }: any = React.useContext(ApplicationContext)
   const [timer, setTimer] = React.useState(20 * 60)
   const [paused, setPaused] = React.useState<boolean>(true)
+  const [breakLength] = React.useState<string[]>(['00:00'])
 
   React.useEffect(() => {
     if (!paused) {
-      document.title = `${formatTime(timer)} | Timer`
+      if (formatTime(timer) === breakLength[0]) {
+        document.title = 'Reminder!'
+        setPaused(true)
+      } else {
+        document.title = `${formatTime(timer)} | Timer`
 
-      setTimeout(() => {
-        setTimer(timer - 1)
-      }, 1000)
+        setTimeout(() => {
+          setTimer(timer - 1)
+        }, 1000)
+      }
     }
   }, [paused, timer])
   return (
@@ -56,7 +64,13 @@ export default function Hero() {
             </Tooltip>
             <IconButton
               aria-label={paused ? 'play' : 'pause'}
-              onClick={() => setPaused(!paused)}
+              onClick={() => {
+                if (formatTime(timer) === breakLength[0]) {
+                  toast.error('Please choose time.')
+                } else {
+                  setPaused(!paused)
+                }
+              }}
             >
               {paused ? (
                 <Tooltip title="Resume" placement="top">
