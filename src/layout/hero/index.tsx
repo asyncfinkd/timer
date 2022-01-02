@@ -68,6 +68,7 @@ export default function Hero() {
                 if (formatTime(timer) === breakLength[0]) {
                   toast.error('Please choose time.')
                 } else {
+                  toast.dismiss()
                   setPaused(!paused)
                 }
               }}
