@@ -46,9 +46,9 @@ export default function Hero() {
         >
           <Box sx={{ fontSize: '1.5rem' }}>{formatTime(timer)}</Box>
           <Box marginTop="1rem">
-            <Tooltip title="-10m" placement="top">
+            <Tooltip title={`-${setting.minutes}m`} placement="top">
               <IconButton
-                aria-label="-10m"
+                aria-label={`-${setting.minutes}m`}
                 onClick={() => setTimer(timer - setting.minutesToSecond)}
               >
                 <FastRewindRounded sx={{ fontSize: '1.5rem' }} />
@@ -69,10 +69,10 @@ export default function Hero() {
               )}
             </IconButton>
             <IconButton
-              aria-label="+10m"
+              aria-label={`+${setting.minutes}m`}
               onClick={() => setTimer(timer + setting.minutesToSecond)}
             >
-              <Tooltip title="+10m" placement="top">
+              <Tooltip title={`+${setting.minutes}m`} placement="top">
                 <FastForwardRounded sx={{ fontSize: '1.5rem' }} />
               </Tooltip>
             </IconButton>

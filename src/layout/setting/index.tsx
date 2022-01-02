@@ -1,12 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import Box from '@mui/material/Box'
 import SettingsIcon from '@mui/icons-material/Settings'
 import CloseIcon from '@mui/icons-material/Close'
 import Tooltip from '@mui/material/Tooltip'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import TextField from '@mui/material/TextField'
+import { ApplicationContext } from 'context'
 
 export default function Setting() {
+  const { setting, setSetting } = React.useContext(ApplicationContext)
   const [show, setShow] = React.useState<boolean>(false)
+  const [notification, setNotification] = React.useState<string>('sound')
+  const [incrementDecrementTime, setIncrementDecrementTime] =
+    React.useState<string>(setting.minutes)
 
+  React.useEffect(() => {
+    setSetting({
+      minutes: incrementDecrementTime,
+      minutesToSecond: parseInt(incrementDecrementTime) * 60,
+    })
+  }, [incrementDecrementTime])
   return (
     <>
       {show && (
@@ -56,6 +73,34 @@ export default function Setting() {
                   />
                 </Box>
               </Tooltip>
+            </Box>
+            <Box sx={{ padding: '0 40px' }} marginTop="20px">
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Notification
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={notification}
+                  label="Notification"
+                  onChange={(e) => setNotification(e.target.value)}
+                >
+                  <MenuItem value={'sound'}>By Sound</MenuItem>
+                  <MenuItem value={'text'}>By Text</MenuItem>
+                </Select>
+              </FormControl>
+
+              <TextField
+                id="outlined-name"
+                label="Time to Increment/Decrement"
+                sx={{ marginTop: '20px' }}
+                fullWidth
+                value={incrementDecrementTime}
+                onChange={(e) => {
+                  setIncrementDecrementTime(e.target.value)
+                }}
+              />
             </Box>
           </Box>
         </>

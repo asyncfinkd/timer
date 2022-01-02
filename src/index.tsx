@@ -25,7 +25,7 @@ const LazyLoad = () => {
 
 const Pages = () => {
   const [setting, setSetting] = React.useState({
-    minutes: '10m',
+    minutes: '10',
     minutesToSecond: 600,
   })
 
