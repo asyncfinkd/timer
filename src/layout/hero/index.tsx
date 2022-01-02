@@ -58,8 +58,10 @@ export default function Hero() {
               <IconButton
                 aria-label={`-${setting.minutes}m`}
                 onClick={() => {
-                  if (formatTime(timer) !== breakLength[0]) {
-                    setTimer(timer - setting.minutesToSecond)
+                  if (paused) {
+                    if (formatTime(timer) !== breakLength[0]) {
+                      setTimer(timer - setting.minutesToSecond)
+                    }
                   }
                 }}
               >
@@ -89,7 +91,11 @@ export default function Hero() {
             </IconButton>
             <IconButton
               aria-label={`+${setting.minutes}m`}
-              onClick={() => setTimer(timer + setting.minutesToSecond)}
+              onClick={() => {
+                if (paused) {
+                  setTimer(timer + setting.minutesToSecond)
+                }
+              }}
             >
               <Tooltip title={`+${setting.minutes}m`} placement="top">
                 <FastForwardRounded sx={{ fontSize: '1.5rem' }} />
