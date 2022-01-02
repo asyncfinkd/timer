@@ -16,12 +16,14 @@ export default function Hero() {
   const [timer, setTimer] = React.useState<number>(20 * 60)
   const [paused, setPaused] = React.useState<boolean>(true)
   const [breakLength] = React.useState<string[]>(['00:00'])
+  const [successMessage, setSuccessMessage] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     if (!paused) {
       if (formatTime(timer) === breakLength[0]) {
         document.title = 'Reminder!'
         setPaused(true)
+        setSuccessMessage(true)
       } else {
         document.title = `${formatTime(timer)} | Timer`
 
@@ -33,6 +35,13 @@ export default function Hero() {
   }, [paused, timer])
   return (
     <>
+      {successMessage && (
+        <>
+          {/* here success message */}
+          {/* here success message */}
+          {/* here success message */}
+        </>
+      )}
       <Box
         display="flex"
         alignItems="center"
