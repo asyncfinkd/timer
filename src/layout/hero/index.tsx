@@ -13,7 +13,7 @@ import toast from 'react-hot-toast'
 
 export default function Hero() {
   const { setting }: any = React.useContext(ApplicationContext)
-  const [timer, setTimer] = React.useState(20 * 60)
+  const [timer, setTimer] = React.useState<number>(20 * 60)
   const [paused, setPaused] = React.useState<boolean>(true)
   const [breakLength] = React.useState<string[]>(['00:00'])
 
