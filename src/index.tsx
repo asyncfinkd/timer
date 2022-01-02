@@ -27,6 +27,7 @@ const Pages = () => {
   const [setting, setSetting] = React.useState({
     minutes: '10',
     minutesToSecond: 600,
+    notification: 'sound',
   })
 
   return (

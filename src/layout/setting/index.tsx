@@ -14,7 +14,9 @@ import { ApplicationContext } from 'context'
 export default function Setting() {
   const { setting, setSetting } = React.useContext(ApplicationContext)
   const [show, setShow] = React.useState<boolean>(false)
-  const [notification, setNotification] = React.useState<string>('sound')
+  const [notification, setNotification] = React.useState<string>(
+    setting.notification
+  )
   const [incrementDecrementTime, setIncrementDecrementTime] =
     React.useState<string>(setting.minutes)
 
