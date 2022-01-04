@@ -26,6 +26,10 @@ export default function Setting() {
       minutesToSecond: parseInt(incrementDecrementTime) * 60,
     })
   }, [incrementDecrementTime])
+
+  React.useEffect(() => {
+    setting.notification = notification
+  }, [notification])
   return (
     <>
       {show && (
