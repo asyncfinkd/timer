@@ -76,7 +76,14 @@ export default function Hero() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Agree</Button>
+          <Button
+            onClick={() => {
+              handleClose()
+              document.title = 'Timer Application'
+            }}
+          >
+            Agree
+          </Button>
         </DialogActions>
       </Dialog>
       <Box
