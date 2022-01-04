@@ -11,23 +11,7 @@ import Tooltip from '@mui/material/Tooltip'
 import { formatTime } from '../../lib/time'
 import { ApplicationContext } from 'context'
 import toast from 'react-hot-toast'
-import Slide from '@mui/material/Slide'
-import { TransitionProps } from '@mui/material/transitions'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
-import Button from '@mui/material/Button'
-
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement<any, any>
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />
-})
+import { Dialogs } from 'components/dialog'
 
 export default function Hero() {
   const { setting }: any = React.useContext(ApplicationContext)
@@ -64,32 +48,13 @@ export default function Hero() {
   }, [paused, timer])
   return (
     <>
-      <Dialog
+      <Dialogs
+        text={
+          'The time chosen for you has expired. You have selected the text message and that is why you will get a similar dialog box. If you want to use other services, click "Agree"'
+        }
+        handleClose={handleClose}
         open={open}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle>{'Timer Reminder'}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            The time chosen for you has expired. You have selected the text
-            message and that is why you will get a similar dialog box. If you
-            want to use other services, click "Agree"
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              handleClose()
-              document.title = 'Timer Application'
-            }}
-          >
-            Agree
-          </Button>
-        </DialogActions>
-      </Dialog>
+      />
       <Box
         display="flex"
         alignItems="center"
