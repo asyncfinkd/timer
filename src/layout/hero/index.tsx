@@ -49,7 +49,10 @@ export default function Hero() {
       if (formatTime(timer) === breakLength[0]) {
         document.title = 'Reminder!'
         setPaused(true)
-        setOpen(true)
+
+        if (setting.notification === 'text') {
+          setOpen(true)
+        }
       } else {
         document.title = `${formatTime(timer)} | Timer`
 
