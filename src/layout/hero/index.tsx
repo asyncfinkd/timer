@@ -12,6 +12,7 @@ import { formatTime } from '../../lib/time'
 import { ApplicationContext } from 'context'
 import toast from 'react-hot-toast'
 import { Dialogs } from 'components/dialog'
+import { LocalStorage } from 'lib/local-storage'
 
 export default function Hero() {
   const { setting }: any = React.useContext(ApplicationContext)
@@ -120,6 +121,8 @@ export default function Hero() {
               onClick={() => {
                 if (paused) {
                   setTimer(timer + setting.minutesToSecond)
+
+                  LocalStorage(timer + setting.minutesToSecond)
                 } else {
                   toast.error(
                     'If you want to change time first of all stop timer'
