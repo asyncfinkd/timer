@@ -17,7 +17,15 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-export const Dialogs = ({ text, handleClose, open }: any) => {
+export const Dialogs = ({
+  text,
+  handleClose,
+  open,
+}: {
+  text: string
+  handleClose: () => void
+  open: boolean
+}) => {
   return (
     <>
       <Dialog
