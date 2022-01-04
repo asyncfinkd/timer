@@ -84,6 +84,10 @@ export default function Hero() {
                     if (formatTime(timer) !== breakLength[0]) {
                       setTimer(timer - setting.minutesToSecond)
                     }
+                  } else {
+                    toast.error(
+                      'If you want to change time first of all stop timer'
+                    )
                   }
                 }}
               >
@@ -116,6 +120,10 @@ export default function Hero() {
               onClick={() => {
                 if (paused) {
                   setTimer(timer + setting.minutesToSecond)
+                } else {
+                  toast.error(
+                    'If you want to change time first of all stop timer'
+                  )
                 }
               }}
             >
