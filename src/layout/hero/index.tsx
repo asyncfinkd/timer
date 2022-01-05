@@ -12,7 +12,11 @@ import { formatTime } from '../../lib/time'
 import { ApplicationContext } from 'context'
 import toast from 'react-hot-toast'
 import { Dialogs } from 'components/dialog'
-import { LocalStorage } from 'lib/local-storage'
+import * as assert from 'assert'
+import { setItem, getItem } from 'fp-ts-local-storage'
+import { some } from 'fp-ts/lib/Option'
+import { pipe } from 'fp-ts/lib/pipeable'
+import { chain } from 'fp-ts/lib/IO'
 
 export default function Hero() {
   const { setting }: any = React.useContext(ApplicationContext)
@@ -21,12 +25,28 @@ export default function Hero() {
   const [breakLength] = React.useState<string[]>(['00:00'])
   const [open, setOpen] = React.useState<boolean>(false)
 
+  const getLocalStorage: any = pipe(
+    getItem('dev_loc_time'),
+    chain(() => getItem('dev_loc_time'))
+  )
+
+  const [storage, setStorage] = React.useState(getLocalStorage)
+
   const handleClickOpen = () => {
     setOpen(true)
   }
 
   const handleClose = () => {
     setOpen(false)
+  }
+
+  const LocalStorage = (value: number) => {
+    const program = pipe(
+      setItem('dev_loc_time', JSON.stringify({ minutes: value })),
+      chain(() => getItem('dev_loc_time'))
+    )
+
+    assert.deepStrictEqual(program(), some(`{"minutes":${value}}`))
   }
 
   React.useEffect(() => {
@@ -46,7 +66,17 @@ export default function Hero() {
         }, 1000)
       }
     }
+
+    // LocalStorage(timer)
   }, [paused, timer])
+
+  const renderTime = () => {
+    if (typeof storage.value !== 'undefined') {
+      return formatTime(JSON.parse(storage.value).minutes)
+    } else {
+      return formatTime(timer)
+    }
+  }
   return (
     <>
       <Dialogs
@@ -75,7 +105,7 @@ export default function Hero() {
           justifyContent="center"
           flexDirection="column"
         >
-          <Box sx={{ fontSize: '1.5rem' }}>{formatTime(timer)}</Box>
+          <Box sx={{ fontSize: '1.5rem' }}>{renderTime()}</Box>
           <Box marginTop="1rem">
             <Tooltip title={`-${setting.minutes}m`} placement="top">
               <IconButton
@@ -84,6 +114,8 @@ export default function Hero() {
                   if (paused) {
                     if (formatTime(timer) !== breakLength[0]) {
                       setTimer(timer - setting.minutesToSecond)
+
+                      LocalStorage(timer - setting.minutesToSecond)
                     }
                   } else {
                     toast.error(
