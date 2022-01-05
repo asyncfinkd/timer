@@ -55,7 +55,9 @@ export default function Hero() {
 
     assert.deepStrictEqual(
       program(),
-      some(`{"minutes":${value}}{"minutesToSecond":${secondValue}}`)
+      some(
+        `{"minutes":${value}}{"minutesToSecond":${secondValue}}{"notification":${setting.notification}}`
+      )
     )
   }
 
@@ -166,7 +168,12 @@ export default function Hero() {
               aria-label={`+${setting.minutes}m`}
               onClick={() => {
                 if (paused) {
-                  setTimer(timer + setting.minutesToSecond)
+                  setTimer(
+                    typeof storage.value !== 'undefined'
+                      ? JSON.parse(storage.value).minutesToSecond +
+                          setting.minutesToSecond
+                      : timer + setting.minutesToSecond
+                  )
 
                   LocalStorage(
                     String(Math.floor(timer / 60)),
