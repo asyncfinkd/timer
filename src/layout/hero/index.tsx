@@ -12,6 +12,11 @@ import { formatTime } from '../../lib/time'
 import { ApplicationContext } from 'context'
 import toast from 'react-hot-toast'
 import { Dialogs } from 'components/dialog'
+// @ts-ignore
+import Bell from 'assets/audio/bell.mp3'
+import { Howl, Howler } from 'howler'
+
+const audioClips = [{ sound: Bell, label: 'Bell' }]
 
 export default function Hero() {
   const { setting }: any = React.useContext(ApplicationContext)
@@ -28,6 +33,14 @@ export default function Hero() {
     setOpen(false)
   }
 
+  const SoundPlay = (src: any) => {
+    const sound = new Howl({
+      src,
+    })
+
+    sound.play()
+  }
+
   React.useEffect(() => {
     if (!paused) {
       if (formatTime(timer) === breakLength[0]) {
@@ -36,6 +49,8 @@ export default function Hero() {
 
         if (setting.notification === 'text') {
           setOpen(true)
+        } else {
+          SoundPlay(Bell)
         }
       } else {
         document.title = `${formatTime(timer)} | Timer`
@@ -47,6 +62,7 @@ export default function Hero() {
     }
   }, [paused, timer])
 
+  Howler.volume(1.0)
   return (
     <>
       <Dialogs
@@ -83,7 +99,7 @@ export default function Hero() {
                 onClick={() => {
                   if (paused) {
                     if (formatTime(timer) !== breakLength[0]) {
-                      setTimer(timer)
+                      setTimer(timer - setting.minutesToSecond)
                     }
                   } else {
                     toast.error(
