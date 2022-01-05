@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import Box from '@mui/material/Box'
@@ -16,18 +15,12 @@ import { Dialogs } from 'components/dialog'
 import Bell from 'assets/audio/bell.mp3'
 import { Howl, Howler } from 'howler'
 
-const audioClips = [{ sound: Bell, label: 'Bell' }]
-
 export default function Hero() {
   const { setting }: any = React.useContext(ApplicationContext)
   const [timer, setTimer] = React.useState<number>(0.05 * 60)
   const [paused, setPaused] = React.useState<boolean>(true)
   const [breakLength] = React.useState<string[]>(['00:00'])
   const [open, setOpen] = React.useState<boolean>(false)
-
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
 
   const handleClose = () => {
     setOpen(false)
