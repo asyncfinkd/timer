@@ -40,13 +40,23 @@ export default function Hero() {
     setOpen(false)
   }
 
-  const LocalStorage = (value: number) => {
+  const LocalStorage = (value: string, secondValue: number) => {
     const program = pipe(
-      setItem('dev_loc_time', JSON.stringify({ minutes: value })),
+      setItem(
+        'dev_loc_time',
+        JSON.stringify({
+          minutes: value,
+          minutesToSecond: secondValue,
+          notification: setting.notification,
+        })
+      ),
       chain(() => getItem('dev_loc_time'))
     )
 
-    assert.deepStrictEqual(program(), some(`{"minutes":${value}}`))
+    assert.deepStrictEqual(
+      program(),
+      some(`{"minutes":${value}}{"minutesToSecond":${secondValue}}`)
+    )
   }
 
   React.useEffect(() => {
@@ -72,7 +82,8 @@ export default function Hero() {
 
   const renderTime = () => {
     if (typeof storage.value !== 'undefined') {
-      return formatTime(JSON.parse(storage.value).minutes)
+      console.log(JSON.parse(storage.value))
+      return formatTime(JSON.parse(storage.value).minutesToSecond)
     } else {
       return formatTime(timer)
     }
@@ -113,9 +124,12 @@ export default function Hero() {
                 onClick={() => {
                   if (paused) {
                     if (formatTime(timer) !== breakLength[0]) {
-                      setTimer(timer - setting.minutesToSecond)
+                      setTimer(timer)
 
-                      LocalStorage(timer - setting.minutesToSecond)
+                      LocalStorage(
+                        String(Math.floor(timer / 60)),
+                        timer - setting.minutesToSecond
+                      )
                     }
                   } else {
                     toast.error(
@@ -154,7 +168,10 @@ export default function Hero() {
                 if (paused) {
                   setTimer(timer + setting.minutesToSecond)
 
-                  LocalStorage(timer + setting.minutesToSecond)
+                  LocalStorage(
+                    String(Math.floor(timer / 60)),
+                    timer - setting.minutesToSecond
+                  )
                 } else {
                   toast.error(
                     'If you want to change time first of all stop timer'
