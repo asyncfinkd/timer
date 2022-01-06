@@ -26,7 +26,7 @@ export default function Hero() {
     setOpen(false)
   }
 
-  const SoundPlay = (src: any) => {
+  const SoundPlay = (src: string) => {
     const sound = new Howl({
       src,
     })
