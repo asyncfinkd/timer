@@ -10,6 +10,7 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import { ApplicationContext } from 'context'
+import { Button } from '@mui/material'
 
 export default function Setting() {
   const { setting, setSetting }: any = React.useContext(ApplicationContext)
@@ -24,6 +25,7 @@ export default function Setting() {
     setSetting({
       minutes: incrementDecrementTime,
       minutesToSecond: parseInt(incrementDecrementTime) * 60,
+      timer: 10 * 60,
     })
   }, [incrementDecrementTime])
 
@@ -107,6 +109,18 @@ export default function Setting() {
                   setIncrementDecrementTime(e.target.value)
                 }}
               />
+
+              <Button
+                variant="contained"
+                sx={{ width: '100%', marginTop: '2rem', height: 55 }}
+                onClick={() => {
+                  setSetting({
+                    timer: 10 * 60,
+                  })
+                }}
+              >
+                Try Again
+              </Button>
             </Box>
           </Box>
         </>

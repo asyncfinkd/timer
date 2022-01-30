@@ -28,6 +28,7 @@ const Pages = () => {
     minutes: '10',
     minutesToSecond: 600,
     notification: 'sound',
+    timer: 10 * 60,
   })
 
   return (

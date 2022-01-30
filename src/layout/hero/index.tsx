@@ -17,7 +17,7 @@ import { Howl, Howler } from 'howler'
 
 export default function Hero() {
   const { setting }: any = React.useContext(ApplicationContext)
-  const [timer, setTimer] = React.useState<number>(0.05 * 60)
+  const [timer, setTimer] = React.useState<number>(setting.timer)
   const [paused, setPaused] = React.useState<boolean>(true)
   const [breakLength] = React.useState<string[]>(['00:00'])
   const [open, setOpen] = React.useState<boolean>(false)
@@ -25,6 +25,10 @@ export default function Hero() {
   const handleClose = () => {
     setOpen(false)
   }
+
+  React.useEffect(() => {
+    setTimer(setting.timer)
+  }, [setting])
 
   const SoundPlay = (src: string) => {
     const sound = new Howl({

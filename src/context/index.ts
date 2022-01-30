@@ -4,6 +4,7 @@ export interface TContext {
   minutes: string
   minutesToSecond: number
   notification: string
+  timer: number
 }
 
 export interface TAppContext {
